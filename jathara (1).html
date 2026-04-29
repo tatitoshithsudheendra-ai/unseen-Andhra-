@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>THE JATHARA</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+           
+<style>
+/* ========= PALETTE 1 – DAY ========= */
+:root{
+  --bg-main:#FFF7E9;
+  --bg-card:#FFF2D2;
+  --text-main:#2D2A26;
+  --primary:#7B1E1E;
+  --accent:#C0392B;
+  --header:#6D1515;
+  --shadow:0 12px 30px rgba(0,0,0,0.14);
+  --soft-shadow:0 6px 16px rgba(0,0,0,0.12);
+  --ring:0 0 0 3px rgba(192,57,43,0.15);
+}
+
+/* ========= NIGHT MODE ========= */
+.theme-night{
+  --bg-main:#121212;
+  --bg-card:#1B1B1B;
+  --text-main:#F2EDE6;
+  --primary:#B71C1C;
+  --accent:#FF5252;
+  --header:#151515;
+  --shadow:0 4px 14px rgba(0,0,0,0.7);
+  --soft-shadow:0 8px 18px rgba(0,0,0,0.6);
+}
+/* ========= LOGO PAGE NIGHT MODE ========= */
+.theme-night #logoPage{
+  background:
+    linear-gradient(
+      135deg,
+      #1E2F25,   /* dark earthy green */
+      #8A6F1D    /* muted temple gold */
+    );
+  color:#F5F5F5;
+}
+
+/* ========= GLOBAL ========= */
+body{
+  margin:0;
+  font-family:"Source Sans 3", sans-serif;
+  background:
+    radial-gradient(700px 400px at 15% -10%, rgba(123,30,30,0.15), transparent 70%),
+    radial-gradient(600px 380px at 90% 10%, rgba(192,57,43,0.12), transparent 70%),
+    var(--bg-main);
+  color:var(--text-main);
+  text-align:center;
+  transition:0.35s ease;
+}
+
+.page{display:none;min-height:100vh;padding:28px 28px 90px;}
+
+h1,h2,h3{font-family:"Playfair Display", serif;letter-spacing:0.5px;margin:0 0 10px;}
+p{line-height:1.6;font-size:16px;}
+
+button{
+  background:var(--accent);
+  color:white;
+  border:none;
+  padding:12px 20px;
+  border-radius:999px;
+  cursor:pointer;
+  box-shadow:var(--soft-shadow);
+  font-weight:600;
+  transition:transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+
+button:hover{opacity:0.95;transform:translateY(-1px)}
+button:focus-visible{outline:none;box-shadow:var(--ring)}
+
+.link-btn{
+  background:transparent;
+  color:var(--text-main);
+  border:none;
+  padding:6px 8px;
+  box-shadow:none;
+  text-decoration:underline;
+  cursor:pointer;
+}
+.theme-night .link-btn{color:var(--text-main)}
+
+/* ========= HEADER ========= */
+.header{
+  background:var(--header);
+  color:white;
+  padding:16px 20px;
+  font-size:18px;
+  border-radius:14px;
+  margin-bottom:16px;
+  box-shadow:var(--soft-shadow);
+}
+.header-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+/* ========= CARDS ========= */
+.card{
+  background:var(--bg-card);
+  color:var(--text-main);
+  margin:12px 0;
+  padding:16px 18px;
+  border-radius:14px;
+  box-shadow:var(--soft-shadow);
+  cursor:pointer;
+  text-align:left;
+  transition:transform 0.15s ease, box-shadow 0.15s ease;
+}
+.card:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+  gap:14px;
+}
+
+.grid-compact{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+  gap:12px;
+}
+
+.festival-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
+  gap:16px;
+}
+
+.festival-card{
+  padding:0;
+  overflow:hidden;
+  border-radius:18px;
+}
+
+.festival-thumb{
+  position:relative;
+  height:170px;
+  overflow:hidden;
+  background:
+    linear-gradient(145deg, rgba(169,97,14,0.9), rgba(242,193,78,0.72)),
+    url("logo.jpeg") center/cover no-repeat;
+}
+
+.festival-thumb img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.festival-thumb::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg, rgba(0,0,0,0.04), rgba(0,0,0,0.36));
+  pointer-events:none;
+}
+
+.festival-body{
+  padding:16px 18px 18px;
+}
+
+.festival-body h3{
+  margin-bottom:8px;
+}
+
+.card-copy{
+  margin:0;
+  color:var(--text-main);
+  opacity:0.82;
+  line-height:1.55;
+  display:-webkit-box;
+  -webkit-line-clamp:3;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+
+.festival-meta{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:5px 10px;
+  border-radius:999px;
+  background:rgba(192,57,43,0.12);
+  color:var(--accent);
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:0.2px;
+  margin-bottom:10px;
+}
+
+/* ========= LOGIN ========= */
+.login-box{
+  max-width:350px;
+  margin:60px auto;
+  background:var(--bg-card);
+  padding:25px;
+  border-radius:12px;
+  box-shadow:var(--shadow);
+  position:relative;
+  z-index:2;
+}
+.login-box input{
+  width:100%;
+  padding:12px;
+  margin:10px 0;
+  font-size:16px;
+  border-radius:6px;
+  border:1px solid #ccc;
+  box-sizing:border-box;
+}
+.password-box{
+  position:relative;
+}
+
+.toggle-eye{
+  position:absolute;
+  right:10px;
+  top:50%;
+  transform:translateY(-50%);
+  background:none;
+  border:none;
+  font-size:18px;
+  cursor:pointer;
+}
+
+
+/* ========= LOGO PAGE ========= */
+#logoPage{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+
+  background:
+  linear-gradient(
+     135deg,
+      #a9610e,
+      #f2c14e    /* muted temple gold */
+    );
+}
+.project-title{
+  font-size:38px;
+  font-weight:700;
+  letter-spacing:1.5px;
+  margin-bottom:20px;
+  text-transform:uppercase;
+  text-shadow:0 6px 22px rgba(0,0,0,0.2);
+}
+.project-logo{
+  width:180px;
+  max-width:70%;
+  margin-top:10px;
+  filter:drop-shadow(0 8px 20px rgba(0,0,0,0.35));
+}
+.logo-click-area{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  cursor:pointer;
+  gap:8px;
+  padding:18px 28px;
+  border-radius:18px;
+  backdrop-filter:blur(6px);
+  background:rgba(255,255,255,0.18);
+  border:1px solid rgba(255,255,255,0.28);
+}
+.login-page{
+  position:relative;
+  background:#FFFDF8;
+}
+/* Removed duplicate .login-box selector */
+
+.login-page::before{
+  content:"";
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:300px;
+  height:300px;
+
+  background-image:url("logo.png");
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:contain;
+
+  opacity:0.07;          /* 👈 faint watermark */
+  pointer-events:none;   /* 👈 clicks pass through */
+}
+
+/* ========= DETAIL PAGE ========= */
+#detailPage{
+  background-size:cover;
+  background-position:center;
+  background-attachment:fixed;
+}
+
+.overlay{
+  background:rgba(10,10,10,0.65);
+  color:white;
+  padding:22px;
+  border-radius:18px;
+  max-width:780px;
+  margin:0 auto;
+  box-shadow:var(--shadow);
+}
+
+.pill-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  justify-content:center;
+  margin:10px 0 16px;
+}
+.pill{
+  background:rgba(255,255,255,0.18);
+  color:#fff;
+  padding:6px 12px;
+  border-radius:999px;
+  font-size:13px;
+  letter-spacing:0.3px;
+}
+
+.section{
+  max-width:920px;
+  margin:0 auto;
+}
+.subtle{
+  opacity:0.85;
+  font-weight:500;
+}
+
+.hero{
+  background:linear-gradient(145deg, rgba(255,242,210,0.95), rgba(255,255,255,0.8));
+  padding:26px 20px;
+  border-radius:18px;
+  box-shadow:var(--soft-shadow);
+}
+.hero h2{font-size:28px}
+
+.search-wrap{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:center;
+  margin:14px 0 10px;
+}
+.search-wrap input{
+  width:min(420px, 90vw);
+  padding:12px 14px;
+  border-radius:999px;
+  border:1px solid rgba(0,0,0,0.12);
+  font-size:15px;
+  outline:none;
+}
+.search-wrap input:focus{box-shadow:var(--ring)}
+
+/* ========= THEME BUTTON ========= */
+#themeToggle{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  z-index:9999;
+  border-radius:50px;
+  font-size:16px;
+}
+
+/* ========= SELECTION ART ========= */
+.selection-hero{
+  background:
+    radial-gradient(520px 240px at 15% 0%, rgba(123,30,30,0.25), transparent 70%),
+    radial-gradient(520px 260px at 85% 0%, rgba(242,193,78,0.28), transparent 70%),
+    linear-gradient(145deg, rgba(255,247,233,0.95), rgba(255,255,255,0.85));
+  padding:22px 18px;
+  border-radius:18px;
+  box-shadow:var(--soft-shadow);
+  margin-bottom:18px;
+}
+.selection-hero h2{font-size:26px}
+.selection-hero .subtle{margin-top:6px}
+
+.split-art{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  margin-top:14px;
+}
+.art-card{
+  border-radius:16px;
+  padding:18px;
+  color:#fff;
+  min-height:120px;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  box-shadow:var(--soft-shadow);
+  position:relative;
+  overflow:hidden;
+}
+.art-card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg, rgba(0,0,0,0.0), rgba(0,0,0,0.55));
+}
+.art-card > *{position:relative;z-index:1}
+.art-festival{
+  background:
+    url("festivals-bg.jpg") center/cover no-repeat,
+    linear-gradient(135deg, #c0392b, #f2c14e);
+}
+.art-jathara{
+  background:
+    url("jatharas-bg.jpg") center/cover no-repeat,
+    linear-gradient(135deg, #4b2a1a, #a9610e);
+}
+
+/* ========= FOOTER ========= */
+#appFooter{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  padding:12px 10px;
+  font-size:14px;
+  opacity:0.85;
+  background:rgba(255,255,255,0.85);
+  backdrop-filter:blur(6px);
+  border-top:1px solid rgba(0,0,0,0.08);
+}
+
+.theme-night #appFooter{
+  background:rgba(18,18,18,0.8);
+  border-top:1px solid rgba(255,255,255,0.08);
+}
+
+/* ========= CREDITS MODAL ========= */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.6);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:9998;
+}
+.modal-card{
+  background:var(--bg-card);
+  color:var(--text-main);
+  width:min(760px, 92vw);
+  max-height:75vh;
+  overflow:auto;
+  padding:18px 18px 10px;
+  border-radius:16px;
+  box-shadow:var(--shadow);
+  text-align:left;
+}
+.modal-card h3{margin-top:0}
+.modal-card a{color:inherit}
+
+@media (max-width:640px){
+  .page{padding:20px 16px;}
+  .project-title{font-size:30px;}
+  .hero h2{font-size:24px;}
+}
+</style>
+
+</head>
+
+<body>
+<button id="logoutBtn"
+        onclick="logout()"
+        style="position:fixed;top:10px;right:10px;z-index:999;display:none;">
+    Logout
+</button>
+
+<audio id="bgMantra" loop preload="auto">
+    <source src="mantra.mp3" type="audio/mpeg">
+</audio>
+
+<!-- 🔱 LOGO PAGE -->
+<div id="logoPage" class="page info page">
+  <button class="logo-click-area" onclick="openInfo();">
+    <div class="project-title">UNSEEN ANDHRA</div>
+    <div class="subtle">Heritage • Culture • Jathara Trails</div>
+    <img src="logo.png" alt="Project Logo" class="project-logo">
+    <div class="subtle">Tap to enter</div>
+  </button>
+</div>
+<!-- Logo page -->
+
+
+
+ 
+
+<!-- ℹ️ INFO PAGE -->
+<div id="infoPage" class="page">
+  <div class="section hero">
+    <h2>Heritage & Culture Exploration</h2>
+    <p class="subtle">Preserving and Promoting the Rich Culture of Andhra Pradesh through its Jatharas.</p>
+    <button onclick="openSelection()">Start Exploring</button>
+  </div>
+  <div class="section" style="margin-top:20px;">
+    <div class="grid">
+      <div class="card">
+        <h3>Curated Districts</h3>
+        <p>Browse districts and discover sacred festivals, legends, and local traditions.</p>
+      </div>
+      <div class="card">
+        <h3>Authentic Stories</h3>
+        <p>Every Jathara entry includes cultural history for quick learning and recall.</p>
+      </div>
+      <div class="card">
+        <h3>Visual Trail</h3>
+        <p>Immersive backgrounds reflect each deity to enhance the experience.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ✅ SELECTION PAGE -->
+<div id="selectPage" class="page">
+  <div class="header header-row">
+    <button onclick="show('infoPage')">⬅ Back</button>
+    <div>Choose a Journey</div>
+    <div></div>
+  </div>
+  <div class="selection-hero">
+    <h2>Two Cultural Pathways</h2>
+    <div class="subtle">Pick your experience: month-wise festivals or district-wise jatharas.</div>
+    <div class="split-art">
+      <div class="art-card art-festival">
+        <h3>Festivals</h3>
+        <div class="subtle">Seasonal celebrations & rituals</div>
+      </div>
+      <div class="art-card art-jathara">
+        <h3>Jatharas</h3>
+        <div class="subtle">Sacred fairs & local traditions</div>
+      </div>
+    </div>
+  </div>
+  <div class="grid">
+    <div class="card" onclick="openFestivals()">
+      <h3>🎉 Festivals</h3>
+      <p>Explore a month-wise festival calendar of Andhra Pradesh.</p>
+    </div>
+    <div class="card" onclick="openDistricts()">
+      <h3>🛕 Jatharas</h3>
+      <p>Discover district-wise Jatharas with stories and directions.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 🎉 FESTIVALS -->
+<div id="festivalPage" class="page">
+  <div class="header header-row">
+    <button onclick="show('selectPage')">⬅ Back</button>
+    <div>Festivals Calendar</div>
+    <div></div>
+  </div>
+  <div id="festivalList"></div>
+</div>
+
+<!-- 🎊 FESTIVAL DETAIL -->
+<div id="festivalDetailPage" class="page">
+  <div class="overlay">
+    <h2 id="fName">Loading...</h2>
+    <div class="pill-row">
+      <div class="pill" id="fMonth">Month</div>
+    </div>
+    <p id="fDesc"></p>
+    <button id="fKnowMore">Know More</button>
+    <br><br>
+    <button onclick="show('festivalPage')">⬅ Back</button>
+  </div>
+</div>
+
+<!-- 📍 DISTRICTS -->
+<div id="districtPage" class="page">
+  <div class="header header-row">
+    <button onclick="show('selectPage')">⬅ Back</button>
+    <div>Select District</div>
+    <button onclick="show('infoPage')">Home</button>
+  </div>
+  <div class="search-wrap">
+    <input id="districtSearch" type="text" placeholder="Search district..." oninput="searchDistricts()" aria-label="Search district">
+  </div>
+  <div id="districtList" class="grid"></div>
+</div>
+
+<!-- 🛕 JATHARAS -->
+<div id="jatharaPage" class="page">
+  <div class="header header-row">
+    <button onclick="backToDistricts()">⬅ Back</button>
+    <div id="districtTitle">Jatharas</div>
+    <div></div>
+  </div>
+  <div id="jatharaList" class="grid"></div>
+</div>
+
+
+<!-- 📖 JATHARA DETAILS -->
+<div id="detailPage" class="page jathara-bg">
+ <div class="overlay">
+  <h2 id="jName" aria-label="Jathara Name">Loading...</h2>
+  <div class="pill-row">
+    <div class="pill" id="jPlace">Place</div>
+    <div class="pill" id="jDeity">Deity</div>
+  </div>
+  <p id="jHistory"></p>
+
+  <button id="knowMore">Know More</button>
+  <button id="direction">Get Directions</button><br><br>
+
+  <button onclick="backToJatharas()">⬅ Back</button>
+ </div>
+ 
+</div>
+<script>
+function searchDistricts(){
+    const input = document.getElementById("districtSearch").value.toLowerCase();
+    const districts = document.querySelectorAll(".district-card"); 
+    // ⚠️ Make sure your district boxes have class="district-card"
+
+    districts.forEach(d => {
+        const text = d.innerText.toLowerCase();
+        if(text.includes(input)){
+            d.style.display = "block";
+        } else {
+            d.style.display = "none";
+        }
+    });
+}
+
+</script>
+
+<script>
+
+/* 🎵 Start mantra */
+function startMantra(){
+ let m=document.getElementById("bgMantra");
+ m.volume=0.3;
+ m.play().catch(()=>{});
+}
+
+/* PAGE NAVIGATION */
+function show(page){
+    document.querySelectorAll(".page,#logoPage")
+        .forEach(p => p.style.display = "none");
+
+    document.getElementById(page).style.display = "block";
+}
+   
+
+
+function openInfo(){
+ show("infoPage");
+ startMantra();
+}
+
+function openSelection(){
+ show("selectPage");
+}
+
+function openDistricts(){
+ show("districtPage");
+}
+
+/* DATA (Admin-friendly) */
+const APP_DATA = {
+  festivals:[
+    {
+      month:"January",
+      items:[
+        {date:"January 14/15, 2027", name:"Makar Sankranti / Pongal", desc:"Harvest festival celebrating the Sun, agrarian prosperity, family gatherings, and festive traditions across India.", img:"festivals/sankranti.jpg"}
+      ]
+    },
+    {
+      month:"February",
+      items:[
+        {date:"February 11, 2027", name:"Vasant Panchami", desc:"Spring festival dedicated to learning, wisdom, and the arrival of a new season.", img:"festivals/vasant-panchami.jpg"}
+      ]
+    },
+    {
+      month:"March",
+      items:[
+        {date:"March 6, 2027", name:"Maha Shivaratri", desc:"A sacred night of prayer, fasting, temple worship, and devotion to Lord Shiva.", img:"festivals/maha-shivaratri.jpg"},
+        {date:"March 22, 2027", name:"Holi", desc:"Festival of colors celebrating joy, togetherness, and the triumph of good over evil.", img:"festivals/holi.jpg"}
+      ]
+    },
+    {
+      month:"April",
+      items:[
+        {date:"April 2, 2027", name:"Hanuman Jayanti", desc:"Celebration honoring Lord Hanuman, marked by temple visits, chanting, and devotional gatherings.", img:"festivals/hanuman-jayanti.jpg"},
+        {date:"April 7, 2027", name:"Ugadi / Gudi Padwa", desc:"Hindu New Year celebration symbolizing fresh beginnings, renewal, and festive family traditions.", img:"festivals/ugadi.jpg"},
+        {date:"April 14, 2027", name:"Baisakhi / Vishu / Ambedkar Jayanti", desc:"A day of harvest celebrations, regional new year observances, and remembrance of Dr. B. R. Ambedkar.", img:"festivals/baisakhi-vishu-ambedkar.jpg"},
+        {date:"April 15, 2027", name:"Bengali New Year / Bohag Bihu", desc:"Regional new year festivities marked with music, food, cultural rituals, and community gatherings.", img:"festivals/bengali-new-year-bohag-bihu.jpg"},
+        {date:"April 19, 2027", name:"Akshaya Tritiya", desc:"An auspicious day associated with prosperity, charity, and new beginnings.", img:"festivals/akshaya-tritiya.jpg"}
+      ]
+    },
+    {
+      month:"May",
+      items:[
+        {date:"May 1, 2027", name:"Buddha Purnima", desc:"Commemoration of the birth, enlightenment, and teachings of Gautama Buddha.", img:"festivals/buddha-purnima.jpg"}
+      ]
+    },
+    {
+      month:"July",
+      items:[
+        {date:"July 16, 2027", name:"Jagannath Rath Yatra", desc:"Grand chariot festival celebrated with processions, devotion, and public participation.", img:"festivals/jagannath-rath-yatra.jpg"}
+      ]
+    },
+    {
+      month:"August",
+      items:[
+        {date:"August 15, 2027", name:"Independence Day", desc:"National celebration honoring India’s independence with ceremonies, culture, and patriotism.", img:"festivals/independence-day.jpg"},
+        {date:"August 26, 2027", name:"Onam (Thiruvonam)", desc:"Harvest festival celebrated with floral decorations, feasts, and cultural performances.", img:"festivals/onam.jpg"},
+        {date:"August 28, 2027", name:"Raksha Bandhan", desc:"Festival celebrating the bond between siblings through rituals and family gatherings.", img:"festivals/raksha-bandhan.jpg"}
+      ]
+    },
+    {
+      month:"September",
+      items:[
+        {date:"September 4, 2027", name:"Janmashtami", desc:"Celebration of Lord Krishna’s birth through fasting, songs, and midnight worship.", img:"festivals/janmashtami.jpg"},
+        {date:"September 14, 2027", name:"Ganesh Chaturthi", desc:"Festival honoring Lord Ganesha with idols, prayers, processions, and immersion rituals.", img:"festivals/ganesh-chaturthi.jpg"}
+      ]
+    },
+    {
+      month:"October",
+      items:[
+        {date:"October 2, 2027", name:"Gandhi Jayanti", desc:"National observance remembering Mahatma Gandhi and his message of peace and service.", img:"festivals/gandhi-jayanti.jpg"},
+        {date:"October 11, 2027", name:"Navratri Begins", desc:"Nine-night festival of devotion, music, dance, and worship of the Divine Feminine.", img:"festivals/navratri.jpg"},
+        {date:"October 19, 2027", name:"Maha Navami", desc:"One of the most important Navratri days, marked by prayers, rituals, and celebration.", img:"festivals/maha-navami.jpg"},
+        {date:"October 20, 2027", name:"Dussehra (Vijayadashami)", desc:"Festival symbolizing the victory of good over evil, celebrated with processions and cultural events.", img:"festivals/dussehra.jpg"}
+      ]
+    },
+    {
+      month:"November",
+      items:[
+        {date:"November 8, 2027", name:"Diwali (Deepavali)", desc:"Festival of lights celebrated with lamps, sweets, prayers, and joyful gatherings.", img:"festivals/diwali.jpg"},
+        {date:"November 11, 2027", name:"Bhai Dooj", desc:"A festival celebrating the bond between brothers and sisters with blessings and rituals.", img:"festivals/bhai-dooj.jpg"},
+        {date:"November 15, 2027", name:"Chhath Puja", desc:"Sun worship festival observed with fasting, prayer, and offerings near water bodies.", img:"festivals/chhath-puja.jpg"},
+        {date:"November 24, 2027", name:"Guru Nanak Jayanti", desc:"Celebration of Guru Nanak’s birth with prayers, kirtan, and community service.", img:"festivals/guru-nanak-jayanti.jpg"}
+      ]
+    },
+    {
+      month:"December",
+      items:[
+        {date:"December 25, 2027", name:"Christmas", desc:"Festival celebrating the birth of Jesus Christ with worship, decoration, and family gatherings.", img:"festivals/christmas.jpg"}
+      ]
+    }
+  ],
+  jatharas:{
+
+"Anakapalli":[
+{
+ name:"Appikonda Jathara",
+ place:"Appikonda",
+ deity:"Rama",
+ history:"The Appikonda Jathara centers around the ancient Someswara Swamy Temple, dedicated to Lord Shiva, located in the coastal village of Appikonda near Visakhapatnam, with a major festival during Shivaratri. The temple dates back centuries, with mentions from the 12th century, and the area, also called Kapilakonda, is known for its significant black stone bull idol, making it a historically and culturally rich spot for local fishermen and devotees. ",
+ img:"appikonda.jpg"
+},
+{
+ name:"Bhimunipatnam Narasimha Jathara",
+ place:"Bheemunipatnam",
+ deity:"shiva",
+ history:"Historic temple connected to coastal Vaishnavite traditions.",
+ img:"bheemunipatnam.jpg"
+}
+],
+
+"Anantapur":[
+{
+ name:"Timmamma Marrimanu Jathara",
+ place:"Timmamma Marrimanu",
+ deity:"shiva",
+ history:"Held near the world’s largest banyan tree, symbolizing fertility and faith.",
+ img:"timmamma.jpg"
+},
+{
+ name:"Bugga Ramalingeswara Swamy Jathara",
+ place:"Bugga",
+ deity:"shiva",
+ history:"Sacred Shiva temple with perennial water flow from underground.",
+ img:"bugga.jpg"
+},
+{
+ name:"Lepakshi Veerabhadra Swamy",
+ place:"Lepakshi",
+ deity:"Rama",
+ history:"Famous for hanging pillar and Ramayana associations.",
+ img:"lepakshi.jpg"
+}
+],
+
+"Annamayya":[
+{
+ name:"Talakona Jathara",
+ place:"Talakona",
+ deity:"Rama",
+ history:"Celebrated near waterfalls, blending devotion and nature worship.",
+ img:"talakona.jpg"
+},
+{
+ name:"Vontimitta Kodandarama Jathara",
+ place:"Vontimitta",
+ deity:"Rama",
+ history:"Historic Rama temple from Vijayanagara period.",
+ img:"ontimitta.jpg"
+}
+],
+
+"Bapatla":[
+{
+ name:"Bhavanarayana Swamy Jathara",
+ place:"Bapatla",
+ deity:"shiva",
+ history:"Important Vaishnavite festival seeking divine blessings for prosperity.",
+ img:"bhavanarayana.jpg"
+},
+{
+ name:"Suryalanka Beach Temple Jathara",
+ place:"Suryalanka",
+ deity:"shiva",
+ history:"Local coastal festival combining faith and fishing culture.",
+ img:"suryalanka.jpg"
+}
+],
+
+"Chittoor":[
+{
+ name:"Gangamma Jathara",
+ place:"Tirupati",
+ deity:"Rama",
+ history:"Colorful folk festival symbolizing victory of goddess over evil.",
+ img:"gangamma.jpg"
+},
+{
+ name:"Kalikambal Jathara",
+ place:"Chittoor",
+deity:"shiva",
+ history:"Ancient Amman worship festival with ritual dances.",
+ img:"kalikambal.jpg"
+}
+],
+
+"Dr B R Ambedkar Konaseema":[
+{
+ name:"Appanapalli Jathara",
+ place:"Appanapalli",
+ deity:"Rama",
+ history:"Famous Hanuman temple associated with river Godavari legends.",
+ img:"appanapalli.jpg"
+},
+{
+ name:"Antarvedi Lakshmi Narasimha Jathara",
+ place:"Antarvedi",
+ deity:"shiva",
+ history:"Sacred confluence of river and sea, powerful Narasimha temple.",
+ img:"antarvedi.jpg"
+}
+],
+
+"East Godavari":[
+{
+ name:"Annavaram Satyanarayana Swamy",
+ place:"Annavaram",
+
+ history:"Renowned for Satyanarayana vratams for family well-being.",
+ img:"annavaram.jpg"
+},
+{
+ name:"Kotipalli Jathara",
+ place:"Kotipalli",
+
+ history:"Shiva temple where devotees believe wishes are fulfilled.",
+ img:"kotipalli.jpg"
+}
+],
+
+"Eluru":[
+{
+ name:"Dwaraka Tirumala Jathara",
+ place:"Dwaraka Tirumala",
+ deity:"Rama",
+ history:"Known as Chinna Tirupati, major Vaishnavite pilgrimage.",
+ img:"dwarakatirumala.jpg"
+},
+{
+ name:"Pancharama Kshetram Jathara",
+ place:"Eluru",
+ deity:"shiva",
+ history:"One of the five ancient Shiva temples of Andhra Pradesh.",
+ img:"pancharama.jpg"
+}
+],
+
+"Guntur":[
+{
+ name:"Kotappakonda Trikoteswara Swamy",
+ place:"Kotappakonda",
+ deity:"shiva",
+ history:"Hill temple symbolizing three Shivas in one.",
+ img:"kotappakonda.jpg"
+},
+{
+ name:"Pedakakani Jathara",
+ place:"Pedakakani",
+ deity:"shiva",
+ history:"Important Shaivite center near Guntur city.",
+ img:"pedakakani.jpg"
+}
+],
+
+"Kakinada":[
+{
+ name:"Pithapuram Padagaya Kshetram",
+ place:"Pithapuram",
+ deity:"Rama",
+ history:"Famous for ancestral rituals and spiritual liberation.",
+ img:"pithapuram.jpg"
+},
+{
+ name:"Draksharama Bhimeswara Swamy",
+ place:"Draksharamam",
+
+ history:"One of Pancharama Kshetrams dedicated to Lord Shiva.",
+ img:"draksharama.jpg"
+}
+],
+
+"Krishna":[
+{
+ name:"Kanaka Durga Navaratri",
+ place:"Vijayawada",
+ deity:"Rama",
+ history:"Grand nine-day celebration on Indrakeeladri hill.",
+ img:"kanakadurgamma.jpg"
+},
+{
+ name:"Movva Jathara",
+ place:"Movva",
+ deity:"shiva",
+ history:"Regional festival associated with Bhakta Kancharla Gopanna.",
+ img:"movva.jpg"
+}
+],
+
+"Kurnool":[
+{
+ name:"Yaganti Jathara",
+ place:"Yaganti",
+ deity:"shiva",
+ history:"Known for growing Nandi statue and cave temples.",
+ img:"yaganti.jpg"
+},
+{
+ name:"Mantralayam Raghavendra Swamy Aradhana",
+ place:"Mantralayam",
+ deity:"shiva",
+ history:"Annual aradhana of saint Raghavendra Swamy.",
+ img:"mantralayam.jpg"
+}
+],
+
+"Nandyal":[
+{
+ name:"Ahobilam Narasimha Jathara",
+ place:"Ahobilam",
+ deity:"Rama",
+ history:"Sacred Nava Narasimha Kshetram in Nallamala forests.",
+ img:"ahobilam.jpg"
+}
+],
+
+"Nellore":[
+{
+ name:"Rottela Panduga",
+ place:"Bara Shaheed Dargah",
+ deity:"Shiva",
+ history:"Unique interfaith festival symbolizing unity.",
+ img:"rottela.jpg"
+},
+{
+ name:"Penna Pushkaralu",
+ place:"Nellore",
+ deity:"Rama",
+ history:"River festival celebrated once in 12 years.",
+ img:"penna.jpg"
+}
+],
+
+"Palnadu":[
+{
+ name:"Kotappakonda Jathara",
+ place:"Kotappakonda",
+  deity:"shiva",
+ history:"Massive Maha Shivaratri gathering.",
+ img:"kotappakonda.jpg"
+}
+],
+
+"Parvathipuram Manyam":[
+{
+ name:"Gummalakshmipuram Jathara",
+ place:"Gummalakshmipuram",
+ deity:"shiva",
+ history:"Tribal cultural festival reflecting ancient traditions.",
+ img:"gummalakshmipuram.jpg"
+}
+],
+
+"Prakasam":[
+{
+ name:"Markapur Lakshmi Narasimha Swamy",
+ place:"Markapur",
+  deity:"Rama",
+ history:"Popular Narasimha temple attracting devotees from Telangana.",
+ img:"markapur.jpg"
+},
+{
+ name:"Cumbum Jathara",
+ place:"Cumbum",
+ deity:"shiva",
+ history:"Village deity festival with traditional rituals.",
+ img:"cumbum.jpg"
+}
+],
+
+"Srikakulam":[
+{
+ name:"Arasavalli Surya Narayana Swamy",
+ place:"Arasavalli",
+ deity:"Rama",
+ history:"One of the few Sun temples in India.",
+ img:"arasavalli.jpg"
+},
+{
+ name:"Kalingapatnam Jathara",
+ place:"Kalingapatnam",
+  deity:"Rama",
+ history:"Coastal temple festival with maritime heritage.",
+ img:"kalingapatnam.jpg"
+}
+],
+
+"Sri Sathya Sai":[
+{
+ name:"Lepakshi Veerabhadra Swamy",
+ place:"Lepakshi",
+  deity:"Rama",
+ history:"Architectural marvel from Vijayanagara empire.",
+ img:"lepakshi.jpg"
+}
+],
+
+"Tirupati":[
+{
+ name:"Srivari Brahmotsavam",
+ place:"Tirumala",
+  deity:"Rama",
+ history:"Grandest annual festival of Lord Venkateswara.",
+ img:"tirumala.jpg"
+},
+{
+ name:"Gangamma Jathara",
+ place:"Tirupati",
+  deity:"Rama",
+ history:"Folk goddess festival held before Brahmotsavam.",
+ img:"gangamma.jpg"
+}
+],
+
+"Visakhapatnam":[
+{
+ name:"Simhachalam Chandanotsavam",
+ place:"Simhachalam",
+ deity:"shiva",
+ history:"Once-a-year darshan after removing sandalwood paste.",
+ img:"simhachalam.jpg"
+},
+{
+ name:"Appikonda Jathara",
+ place:"Appikonda",
+  deity:"shiva",
+ history:"Shiva temple overlooking Bay of Bengal.",
+ img:"appikonda.jpg"
+}
+],
+
+"Vizianagaram":[
+{
+ name:"Pydithalli Ammavari Jathara",
+ place:"Vizianagaram",
+  deity:"Rama",
+ history:"Dasara celebration linked with agricultural prosperity.",
+ img:"pydithalli.jpg"
+}
+],
+
+"West Godavari":[
+{
+ name:"Penugonda Vasavi Kanyaka Parameswari",
+ place:"Penugonda",
+  deity:"Rama",
+ history:"Festival honoring sacrifice and dharma.",
+ img:"penugonda.jpg"
+},
+{
+ name:"Palakollu Ksheerarama Jathara",
+ place:"Palakollu",
+  deity:"shiva",
+ history:"One of the Pancharama Shiva temples.",
+ img:"ksheerarama.jpg"
+}
+],
+
+"YSR Kadapa":[
+{
+ name:"Ontimitta Kodandarama Swamy",
+ place:"Ontimitta",
+    deity:"Rama",
+ history:"Grand Rama temple with cultural significance.",
+ img:"ontimitta.jpg"
+},
+{
+ name:"Gandi Anjaneya Swamy",
+ place:"Gandi",
+deity:"Rama",    
+ history:"Hill temple dedicated to Lord Hanuman.",
+ img:"gandi.jpg"
+}
+],
+
+"Alluri Sitharama Raju":[
+{
+ name:"Chintapalli Jathara",
+ place:"Chintapalli",
+  deity:"Rama",
+ history:"Tribal jathara reflecting forest traditions.",
+ img:"chintapalli.jpg"
+}
+],
+
+"NTR":[
+{
+ name:"Mylavaram Jathara",
+ place:"Mylavaram",
+    deity:"Rama",
+ history:"Regional temple festival with rural devotion.",
+ img:"mylavaram.jpg"
+}
+]
+
+  }
+};
+
+const jatharas = APP_DATA.jatharas;
+const festivals = APP_DATA.festivals;
+
+function openFestivals(){
+  show("festivalPage");
+}
+
+function buildFestivalCalendar(){
+  const wrap = document.getElementById("festivalList");
+  wrap.innerHTML = "";
+  festivals.forEach(entry=>{
+    const month = entry.month;
+    const section = document.createElement("div");
+    section.className = "section";
+    section.innerHTML = `<h3>${month}</h3>`;
+    const grid = document.createElement("div");
+    grid.className = "festival-grid";
+    entry.items.forEach(f=>{
+      const card = document.createElement("div");
+      card.className = "card festival-card";
+      const festivalImage = f.img || "logo.jpeg";
+      card.innerHTML = `
+        <div class="festival-thumb">
+          <img
+            src="${festivalImage}"
+            alt="${f.name}"
+            loading="lazy"
+            onerror="this.onerror=null;this.src='logo.jpeg';"
+          >
+        </div>
+        <div class="festival-body">
+          <div class="festival-meta">${f.date || month}</div>
+          <h3>${f.name}</h3>
+          <p>${f.desc}</p>
+        </div>
+      `;
+      card.onclick = ()=>openFestivalDetail(f, month);
+      grid.appendChild(card);
+    });
+    section.appendChild(grid);
+    wrap.appendChild(section);
+  });
+}
+
+function openFestivalDetail(f, month){
+  show("festivalDetailPage");
+  document.getElementById("fName").innerText = f.name;
+  document.getElementById("fDesc").innerText = f.desc;
+  document.getElementById("fMonth").innerText = f.date || month;
+
+  const page = document.getElementById("festivalDetailPage");
+  page.style.backgroundImage = "url('" + (f.img || "logo.jpeg") + "')";
+  page.style.backgroundSize = "cover";
+  page.style.backgroundPosition = "center";
+  page.style.backgroundRepeat = "no-repeat";
+
+  document.getElementById("fKnowMore").onclick = ()=>{
+    globalThis.open("https://www.google.com/search?q=" + f.name + " festival");
+  };
+}
+
+/* LOAD DISTRICTS */
+const dlist=document.getElementById("districtList");
+Object.keys(jatharas).forEach(d=>{
+ dlist.innerHTML+=`<div class="card district-card" onclick="openJatharas('${d}')">${d}</div>`;
+});
+
+buildFestivalCalendar();
+
+function openJatharas(d){
+ show("jatharaPage");
+ document.getElementById("districtTitle").innerText = d + " Jatharas";
+ const jl = document.getElementById("jatharaList");
+ jl.className = "festival-grid";
+ jl.innerHTML = "";
+ jatharas[d].forEach(j=>{
+  const deity = j.deity || detectDeity(j.name);
+  const card = document.createElement("div");
+  card.className = "card festival-card";
+  card.innerHTML = `
+    <div class="festival-thumb">
+      <img
+        src="${j.img || 'logo.jpeg'}"
+        alt="${j.name}"
+        loading="lazy"
+        onerror="this.onerror=null;this.src='logo.jpeg';"
+      >
+    </div>
+    <div class="festival-body">
+      <div class="festival-meta">${j.place || d} | ${deity}</div>
+      <h3>${j.name}</h3>
+      <p class="card-copy">${j.history || ''}</p>
+    </div>
+  `;
+  card.onclick = ()=>openDetails(j);
+  jl.appendChild(card);
+ });
+}
+
+
+function openDetails(j){
+    show("detailPage");
+
+    document.getElementById("jName").innerText = j.name;
+    document.getElementById("jHistory").innerText = j.history;
+    document.getElementById("jPlace").innerText = j.place || "Unknown place";
+    const deity = j.deity || detectDeity(j.name);
+    document.getElementById("jDeity").innerText = deity;
+
+    const detailPage = document.getElementById("detailPage");
+
+    /* ✅ FORCE BACKGROUND IMAGE */
+    const bg = j.img || getDeityBackground(deity);
+    detailPage.style.backgroundImage = "url('" + bg + "')";
+    detailPage.style.backgroundSize = "cover";
+    detailPage.style.backgroundPosition = "center";
+    detailPage.style.backgroundRepeat = "no-repeat";
+
+    /* 🌙 Night effect */
+    const hour = new Date().getHours();
+    detailPage.classList.toggle("night", hour >= 18 || hour <= 5);
+
+    document.getElementById("knowMore").onclick = ()=>{
+        globalThis.open("https://www.google.com/search?q=" + j.name);
+    };
+
+    document.getElementById("direction").onclick = ()=>{
+        globalThis.open("https://www.google.com/maps/search/" + j.place);
+    };
+}
+
+
+function backToDistricts(){ show("districtPage"); }
+function backToJatharas(){ show("jatharaPage"); }
+</script>
+<script>
+const mantra = document.getElementById("bgMantra");
+let mantraStarted = false;
+function detectDeity(name){
+    name = name.toLowerCase();
+
+    if(name.includes("rama")) return "Rama";
+    if(name.includes("shiva") || name.includes("eshwara")) return "Shiva";
+    if(name.includes("durga") || name.includes("amma") || name.includes("gangamma")) return "Devi";
+    if(name.includes("narasimha")) return "Narasimha";
+
+    return "Default";
+}
+
+// MUST be called inside a user click
+function startMantra(){
+    if(!mantraStarted){
+        mantra.volume = 0.4;
+        mantra.play().then(()=>{
+            mantraStarted = true;
+        }).catch(()=>{
+            console.log("Mantra blocked until user interaction");
+        });
+    }
+}
+</script>
+
+
+
+
+<!-- FOOTER -->
+<div id="appFooter">
+    <div>© 2026 Andhra Pradesh Heritage App | Designed for Academic & Project Use</div>
+    <div>Help: 7396460309 • <button class="link-btn" onclick="toggleCredits(true)">Image Credits</button></div>
+</div>
+
+<div id="creditsModal" class="modal" onclick="toggleCredits(false)">
+  <div class="modal-card" onclick="event.stopPropagation();">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;">
+      <h3>Image Credits</h3>
+      <button onclick="toggleCredits(false)">Close</button>
+    </div>
+    <p class="subtle">Images are sourced from Wikimedia Commons. Please follow the licenses listed on each file page.</p>
+    <ul>
+      <li><a href="https://commons.wikimedia.org/wiki/File:Festival_of_Makar_Sankranti.jpg" target="_blank">Festival of Makar Sankranti</a> — used for Sankranti</li>
+      <li><a href="https://commons.wikimedia.org/wiki/File:Mattu_pongal_celebration.jpg" target="_blank">Mattu pongal celebration</a> — used for Kanuma</li>
+      <li><a href="https://commons.wikimedia.org/wiki/File:Ugadi_festival_dishes.jpg" target="_blank">Ugadi festival dishes</a> — used for Ugadi</li>
+      <li><a href="https://commons.wikimedia.org/wiki/File:Ganesh_immersion_hyd.JPG" target="_blank">Ganesh immersion (Hyderabad)</a> — used for Vinayaka Chavithi</li>
+      <li><a href="https://commons.wikimedia.org/wiki/File:Kanak-durga-1.JPG" target="_blank">Kanaka Durga Temple (Vijayawada)</a> — used for Dasara</li>
+      <li><a href="https://commons.wikimedia.org/wiki/File:Karthika_Deepam.jpg" target="_blank">Karthika Deepam</a> — used for Karthika Deepam</li>
+      <li><a href="https://commons.wikimedia.org/wiki/File:Sankranti_Festival.jpg" target="_blank">Sankranti Festival</a> — used as Festivals background</li>
+      <li><a href="https://commons.wikimedia.org/wiki/File:Kanaka_Durga_Gopuram,_Vijayawada.jpg" target="_blank">Kanaka Durga Gopuram (Vijayawada)</a> — used as Jatharas background</li>
+    </ul>
+  </div>
+</div>
+
+
+<script>
+   
+    let theme = "day";
+
+function toggleTheme(){
+  if(theme === "day"){
+    document.body.classList.add("theme-night");
+    document.getElementById("themeToggle").innerText="🌞 Day";
+    theme="night";
+  }else{
+    document.body.classList.remove("theme-night");
+    document.getElementById("themeToggle").innerText="🌙 Night";
+    theme="day";
+  }
+}
+
+function toggleCredits(show){
+  const modal = document.getElementById("creditsModal");
+  modal.style.display = show ? "flex" : "none";
+}
+
+function getDeityBackground(deity){
+    const map = {
+        "Rama": [
+            "rama.png"
+        ],
+        "Shiva": [
+            "shiva.jpg"
+        ],
+        "Devi": [
+            "logo.jpeg"
+        ],
+        "Narasimha": [
+            "logo.png"
+        ]
+    };
+
+    const list = map[deity] || ["logo.jpeg"];
+    return list[Math.floor(Math.random() * list.length)];
+}
+
+</script>
+
+<button id="themeToggle" onclick="toggleTheme()">🌙 Night</button>
+
+</body>
+
+</html>
